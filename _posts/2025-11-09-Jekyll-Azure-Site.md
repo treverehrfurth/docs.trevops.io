@@ -17,7 +17,7 @@ This guide walks you through setting up a **secure, private, and free documentat
 ### What You’ll Achieve
 
 1. A free static website (for documentation, blogs, or KBs)
-2. A custom HTTPS domain such as [docs.strsi.com](https://docs.strsi.com)
+2. A custom HTTPS domain such as **docs.company.com**
 3. SSO authentication with user/group access control
 4. Automated deployment and build pipeline using GitHub Actions
 
@@ -45,7 +45,7 @@ This solution provides an **enterprise-grade, cost-effective**, and **private al
 Use the [Chirpy Starter Template](https://github.com/cotes2020/chirpy-starter):
 
 1. On GitHub, click **Use this template** → create a new repo (public or private).  
-   Name it after your target domain (e.g., `docs.strsi.com`).
+   Name it after your target domain (e.g., `docs.company.com`).
 
 ### Local Jekyll Installation (Optional but Recommended)
 
@@ -63,7 +63,7 @@ You can run Jekyll locally to test before deployment.
 ## Step 2: Create an Azure Static Web App
 
 1. In Azure Portal, search for **Static Web Apps** → **Create**.  
-2. Choose your resource group and name (e.g., `docs.strsi.com`).  
+2. Choose your resource group and name (e.g., `docs.company.com`).  
 3. **Plan type:**  
    - *Free* — no SSO  
    - *Standard ($9/mo)* — enables SSO  
@@ -85,14 +85,14 @@ The first deployment **will fail** — this is expected and will be fixed in lat
 
 An **App Registration** enables authentication, secrets, and redirect URIs.
 
-1. In Azure AD, create a new **App Registration** (e.g., `docs.strsi.com`).  
+1. In Azure AD, create a new **App Registration** (e.g., `docs.company.com`).  
 2. Choose **Single tenant**.  
 3. Add redirect URIs:
    ```bash
    https://<swa-app-name>.azurestaticapps.net/.auth/login/aad/callback
-   https://docs.strsi.com/.auth/login/aad/callback
+   https://docs.company.com/.auth/login/aad/callback
    ```
-4. Under **Branding & Properties**, set the homepage to `https://docs.strsi.com`.  
+4. Under **Branding & Properties**, set the homepage to `https://docs.company.com`.  
 5. Under **Authentication**, enable **ID tokens (used for implicit and hybrid flows)**.  
 6. Under **Certificates & Secrets**, create a **new client secret** → copy the secret value.  
 7. Under **API permissions**, add **Microsoft Graph → User.Read**, then **Grant admin consent**.  
@@ -231,7 +231,7 @@ jobs:
 
 1. In Azure → **Static Web App → Settings → Custom Domains**.  
 2. Select **Custom domain on other DNS**.  
-3. Enter your domain (e.g., `docs.strsi.com`) → **Next**.  
+3. Enter your domain (e.g., `docs.company.com`) → **Next**.  
 4. Copy the generated **CNAME value**.  
 5. In your DNS provider (e.g., GoDaddy, Cloudflare), add a **CNAME record**:  
    - **Name:** `docs`  
@@ -243,11 +243,11 @@ Once the record propagates, your domain should automatically use HTTPS.
 
 ## Step 6: Restrict Access with SSO Users/Groups
 
-1. In Azure AD → **Enterprise Applications** → select your app (e.g., `docs.strsi.com`).  
+1. In Azure AD → **Enterprise Applications** → select your app (e.g., `docs.company.com`).  
 2. Under **Properties**, enable **Assignment required**.  
 3. Under **Users and groups**, assign the specific users and/or groups allowed access.  
 4. Test in an incognito browser:  
-   - Visit `https://docs.strsi.com`  
+   - Visit `https://docs.company.com`  
    - You should be prompted to sign in via Microsoft  
    - Only assigned users should gain access
 
@@ -271,8 +271,3 @@ This setup offers:
 - **Zero hosting cost** for public access or internal use  
 - **Seamless CI/CD integration** through GitHub Actions  
 - **Enterprise-grade security** without expensive SaaS subscriptions
-
----
-
-*Authored by [Trever Ehrfurth](mailto:tehrfurth@strsi.com)*  
-*Strategic Systems Inc.*

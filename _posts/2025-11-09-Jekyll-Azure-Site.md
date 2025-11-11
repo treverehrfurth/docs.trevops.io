@@ -3,7 +3,7 @@ title: Free KB/Doc/Blog Site w/SSO via Azure SWA
 description: How to build, run, and host a secure and private static website for free with SSO.
 date: 2025-11-08 12:00:00 -0500
 categories: [IT, Hosting]
-tags: [azure, static web apps, swa , github , ci/cd]     # TAG names should always be lowercase
+tags: [azure, static web apps, swa , github , ci/cd, entra]     # TAG names should always be lowercase
 ---
 
 ## Overview
@@ -12,7 +12,7 @@ This guide walks you through setting up a **secure, private, and free documentat
 
 - **Jekyll** with the **Chirpy** theme  
 - **GitHub Actions** for CI/CD  
-- **Azure Static Web Apps** for hosting and authentication via **Azure AD SSO**
+- **Azure Static Web Apps** for hosting and authentication via **Entra ID SSO**
 
 ### What You’ll Achieve
 

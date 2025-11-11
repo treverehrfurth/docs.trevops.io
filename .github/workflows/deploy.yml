@@ -35,7 +35,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: docs-trevops # your Pages project name
+          projectName: docs-trevops-io # your Pages project name
           directory: _site
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 

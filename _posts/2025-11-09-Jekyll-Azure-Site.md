@@ -268,7 +268,7 @@ You now have a **fully functional, automated, and secure documentation or blog s
 
 This setup offers:
 
-- **Zero hosting cost** for public access or small internal use  
+- **Zero hosting cost** for public access or internal use  
 - **Seamless CI/CD integration** through GitHub Actions  
 - **Enterprise-grade security** without expensive SaaS subscriptions
 

@@ -1,0 +1,50 @@
+name: Build & Deploy (Chirpy → Cloudflare Pages)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3" # match a current stable Ruby
+          bundler-cache: true
+
+      - name: Install gems
+        run: bundle install --path vendor/bundle
+
+      - name: Build site
+        run: bundle exec jekyll build --trace
+
+      # Option A: Deploy with the Cloudflare Pages Action (Direct Upload)
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: docs-trevops # your Pages project name
+          directory: _site
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # --- OR ---
+
+      # Option B: Deploy via Wrangler (recommended by some community threads)
+      # - name: Publish with Wrangler
+      #   uses: cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     command: pages deploy _site --project-name=docs-trevops --branch=${{ github.ref_name }}
